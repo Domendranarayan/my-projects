@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <br/>
+    <div>
+        <nav class="navbar navbar-light bg-secondary">
+            <section class="raw">
+                <section class="col-12 col-sm-6 col-md-3">
+                    <h3 >Login</h3> 
+                    <form action='' method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+            
+                    <input type ="submit", value="login">
+                    </form>
+                    <br/>
+                   
+                </section>
+            </section>
+        </nav>
+    </div>
+    
+  
+ 
+{% endblock %}

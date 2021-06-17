@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+
+    <hr/>
+    <h1>{{ post.title }}</h1>
+    
+        <p>
+            Published {{ post.publish }} by {{ post.author }} 
+        </p>
+        {% if post.image %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{post.image.url}}" class="card-img-top">
+            </div>
+            
+             <br/>
+             <p class="card">{{ post.content|linebreaks }}</p>
+        {% else %}
+            <p class="card">{{ post.content|linebreaks }}</p>
+        {% endif %}
+
+        <br/>
+        
+        <form action="{% url 'blog:like_post' post.pk%}" method="POST">
+            {% csrf_token %}
+            {% if liked %}
+                <button type ='submit', name='post_id', value="{{ post.id }}", class="btn btn-danger">Unlike</button>
+            {% else %}
+                <button type ='submit', name='post_id', value="{{ post.id }}", class='btn btn-primary'>Like</button>
+            {% endif %}
+            -    {{ total_likes }} Likes
+        </form>
+        <br/>
+        <br/>
+        
+
+        {% if user.id == post.author.id %}
+            <a href="{% url 'blog:Delete' post.pk %}">Delete</a>
+        {% endif %}
+    
+  
+{% endblock %}
